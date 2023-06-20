@@ -1,5 +1,10 @@
 ﻿namespace hc_gql_chatter;
 
+using HotChocolate.AspNetCore;
+using HotChocolate.Data;
+using HotChocolate.Language;
+using HotChocolate.Types;
+
 public class Startup
 {
     public Startup(IConfiguration configuration)
@@ -13,6 +18,23 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+
+        // HotChocolate GraphQL
+        services.AddGraphQLServer()
+            .AddQueryType(q => q.Name("Query"))
+                .AddType<QueryUsers>()
+            .AddMutationType(m => m.Name("Mutation"))
+                .AddTypeExtension<MutateUser>()
+            // .AddSubscriptionType(s => s.Name("Subscription"))
+            //     .AddTypeExtension<ChatSubscription>()
+            .AddFiltering()
+            .AddSorting()
+            .AddProjections()
+            .AllowIntrospection()
+            .AddInstrumentation()
+            .AddInMemoryQueryStorage()
+            .AddInMemorySubscriptions()
+            .InitializeOnStartup();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
