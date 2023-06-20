@@ -2,6 +2,7 @@ namespace hc_gql_chatter;
 
 using hc_gql_chatter.Model;
 using HotChcoolate;
+using HotChcoolate.Susbcriptions;
 using HotChcoolate.AspNetCore;
 using HotChocolate.Data;
 using HotChocolate.Execution;
