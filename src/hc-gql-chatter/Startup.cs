@@ -2,6 +2,7 @@
 
 using HotChocolate.AspNetCore;
 using HotChocolate.Data;
+using HotChocolate.Execution.Options;
 using HotChocolate.Language;
 using HotChocolate.Types;
 
@@ -22,7 +23,7 @@ public class Startup
         // HotChocolate GraphQL
         services.AddGraphQLServer()
             .AddQueryType(q => q.Name("Query"))
-                .AddType<QueryUsers>()
+                .AddType<QueryUser>()
             .AddMutationType(m => m.Name("Mutation"))
                 .AddTypeExtension<MutateUser>()
             // .AddSubscriptionType(s => s.Name("Subscription"))
@@ -30,8 +31,8 @@ public class Startup
             .AddFiltering()
             .AddSorting()
             .AddProjections()
-            .AllowIntrospection()
-            .AddInstrumentation()
+            // .AllowIntrospection()
+            // .AddInstrumentation()
             .AddInMemoryQueryStorage()
             .AddInMemorySubscriptions()
             .InitializeOnStartup();
@@ -57,6 +58,23 @@ public class Startup
             endpoints.MapGet("/", async context =>
             {
                 await context.Response.WriteAsync("Welcome to running ASP.NET Core on AWS Lambda");
+            });
+
+            endpoints.MapGraphQL()
+                .AllowAnonymous()
+                .WithOptions(new GraphQLServerOptions()
+                {
+                    EnableGetRequests = false,
+                    EnableSchemaRequests = true,
+                    Tool = { Enable = true },
+                });
+
+            endpoints.MapBananaCakePop("/graphql/ide")
+            .WithOptions(new GraphQLToolOptions()
+            {
+                Enable = true,
+                IncludeCookies = true,
+                DisableTelemetry = true,
             });
         });
     }

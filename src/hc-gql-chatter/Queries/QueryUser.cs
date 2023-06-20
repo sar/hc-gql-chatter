@@ -1,14 +1,16 @@
 namespace hc_gql_chatter;
 
+using hc_gql_chatter.Model;
 using HotChocolate.AspNetCore;
 using HotChocolate.Data;
 using System;
 using Microsoft.EntityFrameworkCore;
+using HotChocolate.Execution;
+using HotChocolate.Types;
 
 [ExtendObjectType(Name = "Query")]
 public class QueryUser
 {
-    [AllowAnonymous]
     [UsePaging(IncludeTotalCount = true)]
     [UseProjection]
     [UseFiltering]
@@ -21,7 +23,6 @@ public class QueryUser
             {
                 Name = "Sar",
                 Email = "malik@sarthak.ca",
-                Pwd = "some_token",
                 IsActive = true
             }
         };
