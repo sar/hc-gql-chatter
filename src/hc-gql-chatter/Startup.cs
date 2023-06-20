@@ -15,10 +15,11 @@ public class Startup
 
     public IConfiguration Configuration { get; }
 
-    // This method gets called by the runtime. Use this method to add services to the container
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+
+        services.AddInMemorySubscriptions();
 
         // HotChocolate GraphQL
         services.AddGraphQLServer()
@@ -38,7 +39,6 @@ public class Startup
             .InitializeOnStartup();
     }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())
@@ -51,6 +51,8 @@ public class Startup
         app.UseRouting();
 
         app.UseAuthorization();
+
+        app.UseWebSockets();
 
         app.UseEndpoints(endpoints =>
         {
@@ -70,12 +72,12 @@ public class Startup
                 });
 
             endpoints.MapBananaCakePop("/graphql/ide")
-            .WithOptions(new GraphQLToolOptions()
-            {
-                Enable = true,
-                IncludeCookies = true,
-                DisableTelemetry = true,
-            });
+                .WithOptions(new GraphQLToolOptions()
+                {
+                    Enable = true,
+                    IncludeCookies = true,
+                    DisableTelemetry = true,
+                });
         });
     }
 }

@@ -1,0 +1,12 @@
+{
+    "profiles": {
+        "Lambda": {
+            "commandName": "Project",
+            "launchBrowser": false,
+            "applicationUrl": "https://*:5000;https://127.0.0.1:5050",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "development"
+            }
+        }
+    }
+}
