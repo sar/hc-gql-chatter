@@ -1,0 +1,9 @@
+mutation {
+    addMessage(m: {
+        sender: "sar",
+        text: "this is a test"
+    }) {
+        sender
+        text
+    }
+}

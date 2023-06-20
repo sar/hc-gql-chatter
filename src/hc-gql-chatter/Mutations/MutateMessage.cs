@@ -1,10 +1,13 @@
 namespace hc_gql_chatter;
 
 using hc_gql_chatter.Model;
-using HotChocolate;
-using HotChocolate.Execution;
-using HotChocolate.Susbcriptions;
+
+using HotChocolate.Subscriptions;
 using HotChocolate.AspNetCore;
+using HotChocolate.Data;
+using HotChocolate.Execution;
+using HotChocolate.Types;
+
 using System;
 using System.Threading.Tasks;
 using System.Linq;

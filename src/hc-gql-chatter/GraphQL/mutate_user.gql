@@ -1,0 +1,11 @@
+mutation {
+    addUser(u: {
+        active: true,
+        name: "Sar",
+        email: "malik@sarthak.ca"
+    }) {
+        name
+        email
+        active
+    }
+}
